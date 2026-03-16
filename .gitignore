@@ -1,0 +1,13 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.playwright/
+.playwright-browsers/
+test-results/
+playwright-report/
+allure-results/
+allure-report/
+*.env
+.env*

@@ -1,0 +1,95 @@
+# Multi-stage Dockerfile for running Construct automation tests
+FROM python:3.12-slim as base
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PLAYWRIGHT_BROWSERS_PATH=/app/.playwright-browsers \
+    DEBIAN_FRONTEND=noninteractive
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    # Browser dependencies
+    wget \
+    gnupg \
+    ca-certificates \
+    # General utilities
+    git \
+    curl \
+    unzip \
+    # Font support for rendering
+    fonts-liberation \
+    libappindicator3-1 \
+    libasound2 \
+    libatk-bridge2.0-0 \
+    libdrm2 \
+    libgtk-3-0 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxrandr2 \
+    libxss1 \
+    libxtst6 \
+    # Clean up
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy requirements first for better caching
+COPY requirements-full.txt requirements.txt ./
+
+# Install Python dependencies
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements-full.txt
+
+# Install Playwright browsers
+RUN playwright install chromium firefox webkit && \
+    playwright install-deps
+
+# Copy application code
+COPY . .
+
+# Create non-root user for security
+RUN useradd --create-home --shell /bin/bash tester && \
+    chown -R tester:tester /app
+USER tester
+
+# Create directories for reports
+RUN mkdir -p /app/allure-results /app/htmlcov /app/test-results
+
+# Expose ports for Allure server (optional)
+EXPOSE 8080
+
+# Default command
+CMD ["pytest", "--browser", "chromium", "--alluredir=allure-results", "-v"]
+
+# Development stage with additional tools
+FROM base as development
+USER root
+
+# Install development tools
+RUN apt-get update && apt-get install -y \
+    vim \
+    nano \
+    htop \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install pre-commit hooks
+RUN pip install pre-commit && \
+    pre-commit install
+
+USER tester
+
+# Development command
+CMD ["pytest", "--browser", "chromium", "--headed", "--alluredir=allure-results", "-v", "-s"]
+
+# Production stage for CI/CD
+FROM base as production
+
+# Additional production optimizations
+RUN python -m compileall pages/ tests/
+
+# Production command (headless, optimized)
+CMD ["pytest", "--browser", "chromium", "--alluredir=allure-results", "-v", "--maxfail=1", "--tb=short"]
