@@ -1,0 +1,1 @@
+{"total":2,"items":[{"uid":"d63152c23aec04e78ea97f44b8c52eeb","name":"Construct","statistic":{"failed":5,"broken":0,"skipped":7,"passed":18,"unknown":0,"total":30}},{"uid":"be96b1ea70120086ceb3884c3fd6d7c3","name":"Construct - Smoke","statistic":{"failed":0,"broken":0,"skipped":0,"passed":2,"unknown":0,"total":2}}]}

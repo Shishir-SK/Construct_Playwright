@@ -1,1 +1,0 @@
-"""Construct automation test package."""
