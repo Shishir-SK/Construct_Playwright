@@ -11,17 +11,12 @@ def pytest_sessionfinish(session, exitstatus):
     """Hook to generate and save Allure report after test run."""
     # Generate Allure report
     subprocess.run(["allure", "generate", "allure-results", "--clean"], cwd=os.getcwd(), capture_output=True)
-    
     # Copy to GitHub Pages docs
     docs_dir = os.path.join(os.getcwd(), "docs", "allure-report")
-    old_docs = os.path.join(os.getcwd(), "docs", "allure-report.backup")
-    
-    # Backup old report if exists
+    # Remove existing published report (keeps repo clean and avoids stale artifacts)
     if os.path.exists(docs_dir):
-        if os.path.exists(old_docs):
-            subprocess.run(["rm", "-rf", old_docs], capture_output=True)
-        subprocess.run(["mv", docs_dir, old_docs], capture_output=True)
-    
+        subprocess.run(["rm", "-rf", docs_dir], capture_output=True)
+
     # Copy new report
     report_dir = os.path.join(os.getcwd(), "allure-report")
     if os.path.exists(report_dir):
