@@ -12,7 +12,7 @@ rm -rf allure-results/* 2>/dev/null || true
 
 # Run all smoke tests
 echo "📝 Executing 24 smoke tests..."
-python -m pytest tests/test_smoke_comprehensive.py tests/smoke_test.py \
+python3 -m pytest tests/test_smoke_comprehensive.py tests/smoke_test.py \
     --alluredir=allure-results \
     --clean-alluredir \
     -v \
