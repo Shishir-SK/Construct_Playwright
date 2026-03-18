@@ -8,6 +8,10 @@ __pycache__/
 test-results/
 playwright-report/
 allure-results/
+# Ignore generated Allure report outputs everywhere except the docs folder used for GitHub Pages.
+# This allows us to commit docs/allure-report/ so Pages can serve it at /allure-report/.
 allure-report/
+!docs/allure-report/
+!docs/allure-report/**
 *.env
 .env*

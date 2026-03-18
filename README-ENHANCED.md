@@ -1,5 +1,7 @@
 # Construct Automation - Enhanced Test Suite
 
+![Daily Smoke Tests](https://github.com/Shishir-SK/Construct_Playwright/actions/workflows/daily-smoke.yml/badge.svg)
+
 🚀 **Comprehensive Playwright + Python + pytest automation** for [Construct](https://dev-app.helpconstruct.com) vendor/customer dashboard with **100% test coverage**, **CI/CD ready**, and **detailed Allure reporting**.
 
 ## ✨ Key Features
@@ -38,6 +40,30 @@ pip install -r requirements-full.txt
 # Install Playwright browsers
 playwright install chromium firefox webkit
 ```
+
+## 🧪 Daily Smoke Test CI (Email + Allure Reporting)
+
+This repository runs the smoke suite **every day** via GitHub Actions.
+
+✅ **What you get**
+* Daily test execution (scheduled)
+* Allure report generated and published to GitHub Pages
+* Optional email notification with `allure-report.zip` attached
+
+### Required secrets (GitHub Repository Settings → Secrets)
+| Name | Purpose |
+|------|---------|
+| `SMTP_SERVER` | SMTP host (e.g., `smtp.gmail.com`) |
+| `SMTP_PORT` | SMTP port (e.g., `587`) |
+| `SMTP_USERNAME` | SMTP username (email address) |
+| `SMTP_PASSWORD` | SMTP password / app password |
+| `MAIL_FROM` | `From:` address for emails |
+| `MAIL_TO` | `To:` address for emails |
+
+### View Reports
+* Online: https://shishir-sk.github.io/Construct_Playwright/allure-report/
+* Locally: `allure serve allure-results`
+
 
 ### Configuration
 
