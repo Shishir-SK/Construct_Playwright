@@ -49,6 +49,22 @@ jobs:
             echo "No changes in Allure report, skipping commit."
           fi
 
+      - name: Verify GitHub Pages report is available
+        run: |
+          url="https://shishir-sk.github.io/Construct_Playwright/allure-report/"
+          echo "Checking $url"
+          for i in {1..12}; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" "$url")
+            echo "Attempt $i: HTTP $status"
+            if [ "$status" = "200" ]; then
+              echo "✅ Report is live: $url"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "⚠️ Unable to reach report after retries (last status: $status)"
+          exit 1
+
       - name: Email results
         uses: dawidd6/action-send-mail@v3
         with:
