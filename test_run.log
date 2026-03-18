@@ -1,0 +1,46 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.14.0, pytest-9.0.2, pluggy-1.6.0 -- /Users/shishirk/Desktop/Construct_Automation/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/shishirk/Desktop/Construct_Automation
+configfile: pytest.ini
+testpaths: tests
+plugins: playwright-0.7.2, base-url-2.1.0, allure-pytest-2.15.3
+collecting ... collected 90 items
+
+tests/common/test_login.py::TestLoginPage::test_login_page_loads[chromium] PASSED [  1%]
+tests/common/test_login.py::TestLoginPage::test_invalid_credentials_stay_on_login[chromium] PASSED [  2%]
+tests/common/test_login.py::TestLoginNegative::test_sql_injection_in_email[chromium] PASSED [  3%]
+tests/common/test_login.py::TestLoginNegative::test_sql_injection_in_password[chromium] PASSED [  4%]
+tests/common/test_login.py::TestLoginNegative::test_empty_email[chromium] PASSED [  5%]
+tests/common/test_login.py::TestLoginNegative::test_empty_password[chromium] PASSED [  6%]
+tests/common/test_login.py::TestLoginNegative::test_invalid_email_format[chromium] PASSED [  7%]
+tests/common/test_login.py::TestLoginNegative::test_nonexistent_email[chromium] PASSED [  8%]
+tests/common/test_login.py::TestLoginNegative::test_xss_in_email_sanitized[chromium] PASSED [ 10%]
+tests/customer/test_customer_project_rfp_flow.py::TestCustomerCreateProjectAndTask::test_customer_create_project[chromium] SKIPPED [ 11%]
+tests/customer/test_customer_project_rfp_flow.py::TestCustomerCreateProjectAndTask::test_customer_create_task_under_project[chromium] SKIPPED [ 12%]
+tests/customer/test_customer_project_rfp_flow.py::TestCustomerRequirementUpload::test_customer_add_requirement_pdf[chromium] PASSED [ 13%]
+tests/customer/test_customer_project_rfp_flow.py::TestCustomerRequirementUpload::test_customer_add_requirement_docx[chromium] PASSED [ 14%]
+tests/customer/test_customer_project_rfp_flow.py::TestCustomerInviteVendor::test_customer_invite_vendor[chromium] PASSED [ 15%]
+tests/customer/test_customer_project_rfp_flow.py::TestCustomerRFPFlow::test_customer_create_rfp_with_tiptap[chromium] SKIPPED [ 16%]
+tests/customer/test_customer_project_rfp_flow.py::TestCustomerRFPFlow::test_customer_edit_rfp_version_bump[chromium] SKIPPED [ 17%]
+tests/customer/test_customer_project_rfp_flow.py::TestCustomerRFPFlow::test_customer_submit_rfp[chromium] SKIPPED [ 18%]
+tests/customer/test_customer_project_rfp_flow.py::TestCustomerRFPComments::test_customer_add_comment_after_rfp_submit[chromium] SKIPPED [ 20%]
+tests/customer/test_customer_project_rfp_flow.py::TestCustomerQuoteRFQFlow::test_customer_create_quote_and_submit[chromium] SKIPPED [ 21%]
+tests/customer/test_customer_project_rfp_flow.py::TestCustomerQuoteRFQFlow::test_customer_rfp_non_editable_after_end_date[chromium] SKIPPED [ 22%]
+tests/customer/test_customer_project_rfp_flow.py::TestCustomerQuoteRFQFlow::test_customer_sees_rfq_quote_after_end_date[chromium] SKIPPED [ 23%]
+tests/customer/test_customer_project_rfp_flow.py::TestCustomerVendorInvitePermissions::test_customer_verifies_vendor_cannot_edit_rfp_after_submit[chromium] SKIPPED [ 24%]
+tests/customer/test_customer_rfp_enhanced.py::TestCustomerRFPEnhanced::test_customer_create_rfp_comprehensive[chromium] SKIPPED [ 25%]
+tests/customer/test_customer_rfp_enhanced.py::TestCustomerRFPEnhanced::test_customer_create_rfp_minimal_data[chromium] SKIPPED [ 26%]
+tests/customer/test_customer_rfp_enhanced.py::TestCustomerRFPEnhanced::test_customer_create_rfp_empty_title_validation[chromium] SKIPPED [ 27%]
+tests/customer/test_customer_rfp_enhanced.py::TestCustomerRFPEnhanced::test_customer_create_rfp_security_validation[chromium] FAILED [ 28%]
+
+=================================== FAILURES ===================================
+_ TestCustomerRFPEnhanced.test_customer_create_rfp_security_validation[chromium] _
+tests/customer/test_customer_rfp_enhanced.py:222: in test_customer_create_rfp_security_validation
+    assert False, "Create RFP button not found"
+E   AssertionError: Create RFP button not found
+E   assert False
+=========================== short test summary info ============================
+FAILED tests/customer/test_customer_rfp_enhanced.py::TestCustomerRFPEnhanced::test_customer_create_rfp_security_validation[chromium]
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+============= 1 failed, 12 passed, 13 skipped in 197.68s (0:03:17) =============

@@ -1,0 +1,12 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.14.0, pytest-9.0.2, pluggy-1.6.0 -- /Users/shishirk/Desktop/Construct_Automation/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/shishirk/Desktop/Construct_Automation
+configfile: pytest.ini
+testpaths: tests
+plugins: playwright-0.7.2, base-url-2.1.0, allure-pytest-2.15.3
+collecting ... collected 90 items
+
+tests/common/test_login.py::TestLoginPage::test_login_page_loads[chromium] PASSED [  1%]
+tests/common/test_login.py::TestLoginPage::test_invalid_credentials_stay_on_login[chromium] PASSED [  2%]
+tests/common/test_login.py::TestLoginNegative::test_sql_injection_in_email[chromium] 

@@ -1,10 +1,32 @@
 """Pytest configuration and shared fixtures for Construct automation."""
 import os
+import subprocess
 
 import pytest
 
 def pytest_configure(config):
     config.addinivalue_line("markers", "smoke: marks tests as smoke tests (run first for basic functionality)")
+
+def pytest_sessionfinish(session, exitstatus):
+    """Hook to generate and save Allure report after test run."""
+    # Generate Allure report
+    subprocess.run(["allure", "generate", "allure-results", "--clean"], cwd=os.getcwd(), capture_output=True)
+    
+    # Copy to GitHub Pages docs
+    docs_dir = os.path.join(os.getcwd(), "docs", "allure-report")
+    old_docs = os.path.join(os.getcwd(), "docs", "allure-report.backup")
+    
+    # Backup old report if exists
+    if os.path.exists(docs_dir):
+        if os.path.exists(old_docs):
+            subprocess.run(["rm", "-rf", old_docs], capture_output=True)
+        subprocess.run(["mv", docs_dir, old_docs], capture_output=True)
+    
+    # Copy new report
+    report_dir = os.path.join(os.getcwd(), "allure-report")
+    if os.path.exists(report_dir):
+        subprocess.run(["cp", "-r", report_dir, docs_dir], capture_output=True)
+        print("✅ Allure report generated and saved to GitHub Pages")
 
 # Allow headed mode for debugging
 @pytest.fixture(scope="session")
@@ -16,7 +38,7 @@ def browser_type_launch_args():
 _project_dir = os.path.dirname(os.path.abspath(__file__))
 _browsers_path = os.path.join(_project_dir, ".playwright-browsers")
 # Force project-local path (override any sandbox/cache path)
-os.environ["PLAYWRIGHT_BROWSERS_PATH"] = _browsers_path
+# os.environ["PLAYWRIGHT_BROWSERS_PATH"] = _browsers_path
 
 from config import BASE_URL
 from pages.login_page import LoginPage
