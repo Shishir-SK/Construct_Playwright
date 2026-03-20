@@ -101,7 +101,8 @@ class TestVendorServiceManagement:
         service_page = VendorServicePage(page, base_url)
         
         service_page.navigate_to_add_service()
-        test_service_name = f"E2E Minimal Service {pytest.unique_id() if hasattr(pytest, 'unique_id') else '002'}"
+        import uuid
+        test_service_name = f"E2E Minimal Service {uuid.uuid4().hex[:8]}"
         service_page.fill_service_name(test_service_name)
         service_page.fill_service_description("Minimal test description")
         # Category may not be required
@@ -129,10 +130,12 @@ class TestVendorServiceManagement:
         initial_count = service_page.get_service_count()
         
         # Create multiple services
+        import uuid
+        unique_id = uuid.uuid4().hex[:8]
         service_names = [
-            f"E2E Service Alpha {pytest.unique_id() if hasattr(pytest, 'unique_id') else 'A'}",
-            f"E2E Service Beta {pytest.unique_id() if hasattr(pytest, 'unique_id') else 'B'}",
-            f"E2E Service Gamma {pytest.unique_id() if hasattr(pytest, 'unique_id') else 'C'}"
+            f"E2E Service Alpha {unique_id}A",
+            f"E2E Service Beta {unique_id}B",
+            f"E2E Service Gamma {unique_id}C"
         ]
         
         for service_name in service_names:
@@ -164,7 +167,8 @@ class TestVendorServiceManagement:
         service_page = VendorServicePage(page, base_url)
         
         service_page.navigate_to_add_service()
-        special_service_name = f"E2E Service & Co. (Test) - {pytest.unique_id() if hasattr(pytest, 'unique_id') else '003'}"
+        import uuid
+        special_service_name = f"E2E Service & Co. (Test) - {uuid.uuid4().hex[:6]}"
         service_page.fill_service_name(special_service_name)
         service_page.fill_service_description("Service with special characters: & ( ) -")
         service_page.select_category("IT Services")
@@ -216,7 +220,9 @@ class TestVendorServiceManagement:
         service_page = VendorServicePage(page, base_url)
         
         service_page.navigate_to_add_service()
-        xss_name = f"E2E <script>alert('xss')</script> Service {pytest.unique_id() if hasattr(pytest, 'unique_id') else '004'}"
+        import uuid
+        unique_id = uuid.uuid4().hex[:6]
+        xss_name = f"E2E <script>alert('xss')</script> Service {unique_id}"
         service_page.fill_service_name(xss_name)
         service_page.fill_service_description("<img src=x onerror=alert('xss')>")
         service_page.save_service()
@@ -243,7 +249,9 @@ class TestVendorServiceManagement:
         service_page = VendorServicePage(page, base_url)
         
         service_page.navigate_to_add_service()
-        unicode_name = f"E2E 服务测试 🚀 {pytest.unique_id() if hasattr(pytest, 'unique_id') else '005'}"
+        import uuid
+        unique_id = uuid.uuid4().hex[:6]
+        unicode_name = f"E2E 服务测试 🚀 {unique_id}"
         unicode_description = "Test description with unicode: café, naïve, 🎉"
         
         service_page.fill_service_name(unicode_name)
