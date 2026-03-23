@@ -20,9 +20,9 @@ playwright install chromium
 
 Credentials are in `config.py`. For CI, use environment variables:
 
-- `VENDOR_EMAIL` - Vendor login (default: shishir@codezyng.com)
-- `CUSTOMER_EMAIL` - Customer login (default: test@zupaloop.com)
-- `CONSTRUCT_PASSWORD` - Password (default: Test1234)
+- `VENDOR_EMAIL` - Vendor login (default: rahul+412@codezyng.com@codezyng.com)
+- `CUSTOMER_EMAIL` - Customer login (default: rahul+411@codezyng.com)
+- `CONSTRUCT_PASSWORD` - Password (default: Test@123)
 - `CONSTRUCT_BASE_URL` - Base URL (default: https://dev-app.helpconstruct.com)
 
 ## Running Tests
